@@ -1,29 +1,42 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SiteShell } from "@/components/site/SiteShell";
+import { Hero } from "@/components/home/Hero";
+import { Categories } from "@/components/home/Categories";
+import { FeaturedRestaurants } from "@/components/home/FeaturedRestaurants";
+import { NewsStrip } from "@/components/home/NewsStrip";
+import { RecentlyAdded } from "@/components/home/RecentlyAdded";
+import { HowItWorks } from "@/components/home/HowItWorks";
+import { FinalCTA } from "@/components/home/FinalCTA";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Comida Saudável MZ — Os Melhores Restaurantes de Maputo" },
+      {
+        name: "description",
+        content:
+          "Descubra restaurantes, especialidades, horários de funcionamento e faça pedidos diretamente pela plataforma. A maior plataforma gastronómica de Maputo.",
+      },
+      { property: "og:title", content: "Comida Saudável MZ — Restaurantes de Maputo" },
+      {
+        property: "og:description",
+        content: "Encontre os melhores restaurantes de Maputo, Moçambique.",
+      },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <SiteShell>
+      <Hero />
+      <Categories />
+      <FeaturedRestaurants />
+      <NewsStrip />
+      <RecentlyAdded />
+      <HowItWorks />
+      <FinalCTA />
+    </SiteShell>
   );
 }

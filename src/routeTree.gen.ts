@@ -9,38 +9,188 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as CategoriasRouteImport } from './routes/categorias'
+import { Route as CadastrarRestauranteRouteImport } from './routes/cadastrar-restaurante'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RestaurantesIndexRouteImport } from './routes/restaurantes.index'
+import { Route as RestaurantesIdRouteImport } from './routes/restaurantes.$id'
 
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriasRoute = CategoriasRouteImport.update({
+  id: '/categorias',
+  path: '/categorias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CadastrarRestauranteRoute = CadastrarRestauranteRouteImport.update({
+  id: '/cadastrar-restaurante',
+  path: '/cadastrar-restaurante',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RestaurantesIndexRoute = RestaurantesIndexRouteImport.update({
+  id: '/restaurantes/',
+  path: '/restaurantes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RestaurantesIdRoute = RestaurantesIdRouteImport.update({
+  id: '/restaurantes/$id',
+  path: '/restaurantes/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
+  '/categorias': typeof CategoriasRoute
+  '/contacto': typeof ContactoRoute
+  '/entrar': typeof EntrarRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
+  '/restaurantes/$id': typeof RestaurantesIdRoute
+  '/restaurantes/': typeof RestaurantesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
+  '/categorias': typeof CategoriasRoute
+  '/contacto': typeof ContactoRoute
+  '/entrar': typeof EntrarRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
+  '/restaurantes/$id': typeof RestaurantesIdRoute
+  '/restaurantes': typeof RestaurantesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
+  '/categorias': typeof CategoriasRoute
+  '/contacto': typeof ContactoRoute
+  '/entrar': typeof EntrarRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
+  '/restaurantes/$id': typeof RestaurantesIdRoute
+  '/restaurantes/': typeof RestaurantesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/cadastrar-restaurante'
+    | '/categorias'
+    | '/contacto'
+    | '/entrar'
+    | '/sitemap.xml'
+    | '/sobre'
+    | '/restaurantes/$id'
+    | '/restaurantes/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/cadastrar-restaurante'
+    | '/categorias'
+    | '/contacto'
+    | '/entrar'
+    | '/sitemap.xml'
+    | '/sobre'
+    | '/restaurantes/$id'
+    | '/restaurantes'
+  id:
+    | '__root__'
+    | '/'
+    | '/cadastrar-restaurante'
+    | '/categorias'
+    | '/contacto'
+    | '/entrar'
+    | '/sitemap.xml'
+    | '/sobre'
+    | '/restaurantes/$id'
+    | '/restaurantes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CadastrarRestauranteRoute: typeof CadastrarRestauranteRoute
+  CategoriasRoute: typeof CategoriasRoute
+  ContactoRoute: typeof ContactoRoute
+  EntrarRoute: typeof EntrarRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SobreRoute: typeof SobreRoute
+  RestaurantesIdRoute: typeof RestaurantesIdRoute
+  RestaurantesIndexRoute: typeof RestaurantesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categorias': {
+      id: '/categorias'
+      path: '/categorias'
+      fullPath: '/categorias'
+      preLoaderRoute: typeof CategoriasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cadastrar-restaurante': {
+      id: '/cadastrar-restaurante'
+      path: '/cadastrar-restaurante'
+      fullPath: '/cadastrar-restaurante'
+      preLoaderRoute: typeof CadastrarRestauranteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +198,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/restaurantes/': {
+      id: '/restaurantes/'
+      path: '/restaurantes'
+      fullPath: '/restaurantes/'
+      preLoaderRoute: typeof RestaurantesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/restaurantes/$id': {
+      id: '/restaurantes/$id'
+      path: '/restaurantes/$id'
+      fullPath: '/restaurantes/$id'
+      preLoaderRoute: typeof RestaurantesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CadastrarRestauranteRoute: CadastrarRestauranteRoute,
+  CategoriasRoute: CategoriasRoute,
+  ContactoRoute: ContactoRoute,
+  EntrarRoute: EntrarRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SobreRoute: SobreRoute,
+  RestaurantesIdRoute: RestaurantesIdRoute,
+  RestaurantesIndexRoute: RestaurantesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
