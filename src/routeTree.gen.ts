@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as CategoriasRouteImport } from './routes/categorias'
 import { Route as CadastrarRestauranteRouteImport } from './routes/cadastrar-restaurante'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RestaurantesIndexRouteImport } from './routes/restaurantes.index'
 import { Route as RestaurantesIdRouteImport } from './routes/restaurantes.$id'
 
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategoriasRoute = CategoriasRouteImport.update({
   id: '/categorias',
   path: '/categorias',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
   '/categorias': typeof CategoriasRoute
+  '/sobre': typeof SobreRoute
   '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes/': typeof RestaurantesIndexRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
   '/categorias': typeof CategoriasRoute
+  '/sobre': typeof SobreRoute
   '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes': typeof RestaurantesIndexRoute
 }
@@ -60,6 +68,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
   '/categorias': typeof CategoriasRoute
+  '/sobre': typeof SobreRoute
   '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes/': typeof RestaurantesIndexRoute
 }
@@ -69,6 +78,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cadastrar-restaurante'
     | '/categorias'
+    | '/sobre'
     | '/restaurantes/$id'
     | '/restaurantes/'
   fileRoutesByTo: FileRoutesByTo
@@ -76,6 +86,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cadastrar-restaurante'
     | '/categorias'
+    | '/sobre'
     | '/restaurantes/$id'
     | '/restaurantes'
   id:
@@ -83,6 +94,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cadastrar-restaurante'
     | '/categorias'
+    | '/sobre'
     | '/restaurantes/$id'
     | '/restaurantes/'
   fileRoutesById: FileRoutesById
@@ -91,12 +103,20 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastrarRestauranteRoute: typeof CadastrarRestauranteRoute
   CategoriasRoute: typeof CategoriasRoute
+  SobreRoute: typeof SobreRoute
   RestaurantesIdRoute: typeof RestaurantesIdRoute
   RestaurantesIndexRoute: typeof RestaurantesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/categorias': {
       id: '/categorias'
       path: '/categorias'
@@ -139,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastrarRestauranteRoute: CadastrarRestauranteRoute,
   CategoriasRoute: CategoriasRoute,
+  SobreRoute: SobreRoute,
   RestaurantesIdRoute: RestaurantesIdRoute,
   RestaurantesIndexRoute: RestaurantesIndexRoute,
 }
