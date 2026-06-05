@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as CategoriasRouteImport } from './routes/categorias'
@@ -21,6 +22,11 @@ import { Route as RestaurantesIdRouteImport } from './routes/restaurantes.$id'
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EntrarRoute = EntrarRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/categorias': typeof CategoriasRoute
   '/contacto': typeof ContactoRoute
   '/entrar': typeof EntrarRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes/': typeof RestaurantesIndexRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/categorias': typeof CategoriasRoute
   '/contacto': typeof ContactoRoute
   '/entrar': typeof EntrarRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes': typeof RestaurantesIndexRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/categorias': typeof CategoriasRoute
   '/contacto': typeof ContactoRoute
   '/entrar': typeof EntrarRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes/': typeof RestaurantesIndexRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/categorias'
     | '/contacto'
     | '/entrar'
+    | '/sitemap.xml'
     | '/sobre'
     | '/restaurantes/$id'
     | '/restaurantes/'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/categorias'
     | '/contacto'
     | '/entrar'
+    | '/sitemap.xml'
     | '/sobre'
     | '/restaurantes/$id'
     | '/restaurantes'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/categorias'
     | '/contacto'
     | '/entrar'
+    | '/sitemap.xml'
     | '/sobre'
     | '/restaurantes/$id'
     | '/restaurantes/'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   CategoriasRoute: typeof CategoriasRoute
   ContactoRoute: typeof ContactoRoute
   EntrarRoute: typeof EntrarRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   RestaurantesIdRoute: typeof RestaurantesIdRoute
   RestaurantesIndexRoute: typeof RestaurantesIndexRoute
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/sobre'
       fullPath: '/sobre'
       preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/entrar': {
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   CategoriasRoute: CategoriasRoute,
   ContactoRoute: ContactoRoute,
   EntrarRoute: EntrarRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   RestaurantesIdRoute: RestaurantesIdRoute,
   RestaurantesIndexRoute: RestaurantesIndexRoute,
