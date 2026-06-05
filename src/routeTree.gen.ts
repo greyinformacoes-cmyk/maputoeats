@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as CategoriasRouteImport } from './routes/categorias'
 import { Route as CadastrarRestauranteRouteImport } from './routes/cadastrar-restaurante'
@@ -20,6 +21,11 @@ import { Route as RestaurantesIdRouteImport } from './routes/restaurantes.$id'
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactoRoute = ContactoRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
   '/categorias': typeof CategoriasRoute
   '/contacto': typeof ContactoRoute
+  '/entrar': typeof EntrarRoute
   '/sobre': typeof SobreRoute
   '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes/': typeof RestaurantesIndexRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
   '/categorias': typeof CategoriasRoute
   '/contacto': typeof ContactoRoute
+  '/entrar': typeof EntrarRoute
   '/sobre': typeof SobreRoute
   '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes': typeof RestaurantesIndexRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
   '/categorias': typeof CategoriasRoute
   '/contacto': typeof ContactoRoute
+  '/entrar': typeof EntrarRoute
   '/sobre': typeof SobreRoute
   '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes/': typeof RestaurantesIndexRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/cadastrar-restaurante'
     | '/categorias'
     | '/contacto'
+    | '/entrar'
     | '/sobre'
     | '/restaurantes/$id'
     | '/restaurantes/'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/cadastrar-restaurante'
     | '/categorias'
     | '/contacto'
+    | '/entrar'
     | '/sobre'
     | '/restaurantes/$id'
     | '/restaurantes'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/cadastrar-restaurante'
     | '/categorias'
     | '/contacto'
+    | '/entrar'
     | '/sobre'
     | '/restaurantes/$id'
     | '/restaurantes/'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   CadastrarRestauranteRoute: typeof CadastrarRestauranteRoute
   CategoriasRoute: typeof CategoriasRoute
   ContactoRoute: typeof ContactoRoute
+  EntrarRoute: typeof EntrarRoute
   SobreRoute: typeof SobreRoute
   RestaurantesIdRoute: typeof RestaurantesIdRoute
   RestaurantesIndexRoute: typeof RestaurantesIndexRoute
@@ -128,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/sobre'
       fullPath: '/sobre'
       preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacto': {
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   CadastrarRestauranteRoute: CadastrarRestauranteRoute,
   CategoriasRoute: CategoriasRoute,
   ContactoRoute: ContactoRoute,
+  EntrarRoute: EntrarRoute,
   SobreRoute: SobreRoute,
   RestaurantesIdRoute: RestaurantesIdRoute,
   RestaurantesIndexRoute: RestaurantesIndexRoute,
