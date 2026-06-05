@@ -25,7 +25,10 @@ export function Hero() {
             diretamente através da plataforma.
           </p>
 
-          <form className="mt-8 flex w-full max-w-xl flex-col gap-3 rounded-2xl bg-background/95 p-2 shadow-[var(--shadow-elegant)] backdrop-blur sm:flex-row sm:items-center sm:rounded-full">
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className="mt-8 flex w-full max-w-xl flex-col gap-3 rounded-2xl bg-background/95 p-2 shadow-[var(--shadow-elegant)] backdrop-blur sm:flex-row sm:items-center sm:rounded-full"
+          >
             <div className="flex flex-1 items-center gap-3 px-4">
               <Search className="size-5 shrink-0 text-muted-foreground" />
               <input
