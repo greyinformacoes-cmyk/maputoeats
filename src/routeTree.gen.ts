@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as CadastrarRestauranteRouteImport } from './routes/cadastrar-restaurante'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RestaurantesIndexRouteImport } from './routes/restaurantes.index'
+import { Route as RestaurantesIdRouteImport } from './routes/restaurantes.$id'
 
 const CadastrarRestauranteRoute = CadastrarRestauranteRouteImport.update({
   id: '/cadastrar-restaurante',
@@ -28,34 +29,52 @@ const RestaurantesIndexRoute = RestaurantesIndexRouteImport.update({
   path: '/restaurantes/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RestaurantesIdRoute = RestaurantesIdRouteImport.update({
+  id: '/restaurantes/$id',
+  path: '/restaurantes/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
+  '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes/': typeof RestaurantesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
+  '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes': typeof RestaurantesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
+  '/restaurantes/$id': typeof RestaurantesIdRoute
   '/restaurantes/': typeof RestaurantesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cadastrar-restaurante' | '/restaurantes/'
+  fullPaths:
+    | '/'
+    | '/cadastrar-restaurante'
+    | '/restaurantes/$id'
+    | '/restaurantes/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cadastrar-restaurante' | '/restaurantes'
-  id: '__root__' | '/' | '/cadastrar-restaurante' | '/restaurantes/'
+  to: '/' | '/cadastrar-restaurante' | '/restaurantes/$id' | '/restaurantes'
+  id:
+    | '__root__'
+    | '/'
+    | '/cadastrar-restaurante'
+    | '/restaurantes/$id'
+    | '/restaurantes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastrarRestauranteRoute: typeof CadastrarRestauranteRoute
+  RestaurantesIdRoute: typeof RestaurantesIdRoute
   RestaurantesIndexRoute: typeof RestaurantesIndexRoute
 }
 
@@ -82,12 +101,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RestaurantesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/restaurantes/$id': {
+      id: '/restaurantes/$id'
+      path: '/restaurantes/$id'
+      fullPath: '/restaurantes/$id'
+      preLoaderRoute: typeof RestaurantesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastrarRestauranteRoute: CadastrarRestauranteRoute,
+  RestaurantesIdRoute: RestaurantesIdRoute,
   RestaurantesIndexRoute: RestaurantesIndexRoute,
 }
 export const routeTree = rootRouteImport
