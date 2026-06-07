@@ -11,7 +11,6 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { AuthProvider } from "../lib/auth-context";
 
 function NotFoundComponent() {
   return (
@@ -82,10 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Descubra os melhores restaurantes de Maputo. Veja fotos, especialidades, horários e faça pedidos diretamente pela plataforma." },
       { name: "author", content: "Comida Saudável MZ" },
       { property: "og:title", content: "Comida Saudável MZ — Restaurantes de Maputo" },
-      { property: "og:description", content: "A maior plataforma de descoberta de restaurantes de Maputo, Moçambique." },
+      { property: "og:description", content: "Descubra os melhores restaurantes de Maputo. Veja fotos, especialidades, horários e faça pedidos diretamente pela plataforma." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@ComidaSaudavelMZ" },
+      { name: "twitter:title", content: "Comida Saudável MZ — Restaurantes de Maputo" },
+      { name: "twitter:description", content: "Descubra os melhores restaurantes de Maputo. Veja fotos, especialidades, horários e faça pedidos diretamente pela plataforma." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/201604f7-68e7-4968-b29c-0dfdd3ae4ced/id-preview-9500b91c--76dd8fcc-0f4e-4ff0-ac4d-c4cce36be074.lovable.app-1780863724726.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/201604f7-68e7-4968-b29c-0dfdd3ae4ced/id-preview-9500b91c--76dd8fcc-0f4e-4ff0-ac4d-c4cce36be074.lovable.app-1780863724726.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -125,10 +128,8 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-      </AuthProvider>
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <Outlet />
     </QueryClientProvider>
   );
 }
