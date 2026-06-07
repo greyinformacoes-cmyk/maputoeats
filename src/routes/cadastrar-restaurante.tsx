@@ -54,14 +54,17 @@ function CadastrarPage() {
   const [values, setValues] = useState<FormValues>(empty);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
 
   function update<K extends keyof FormValues>(key: K, v: string) {
     setValues((s) => ({ ...s, [key]: v }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setServerError(null);
     const result = schema.safeParse(values);
     if (!result.success) {
       const fieldErrors: FormErrors = {};
@@ -72,6 +75,25 @@ function CadastrarPage() {
       setErrors(fieldErrors);
       return;
     }
+
+    setSubmitting(true);
+    const { error } = await supabase.from("restaurants").insert({
+      name: result.data.nome,
+      address: result.data.endereco,
+      hours: result.data.horario,
+      whatsapp: result.data.whatsapp,
+      owner_name: result.data.responsavel,
+      owner_phone: result.data.telefone,
+      owner_email: result.data.email || null,
+      status: "pendente",
+    });
+    setSubmitting(false);
+
+    if (error) {
+      setServerError("Não foi possível enviar o pedido. Tente novamente.");
+      return;
+    }
+
     setSubmitted(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
