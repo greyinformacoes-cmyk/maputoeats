@@ -415,7 +415,7 @@ function OrdersTab() {
                 <div className="text-xs text-muted-foreground">{o.customer_phone}</div>
               </TableCell>
               <TableCell>
-                {(o.restaurants as { name?: string } | null)?.name ?? "—"}
+                {(o.restaurants as unknown as { name?: string } | null)?.name ?? "—"}
               </TableCell>
               <TableCell>{Number(o.total).toLocaleString("pt-MZ")} MZN</TableCell>
               <TableCell>{orderStatusBadge(o.status)}</TableCell>
