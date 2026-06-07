@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import { CheckCircle2, Info, Send, ShieldCheck, TrendingUp, Headphones } from "lucide-react";
+import { CheckCircle2, Info, Send, ShieldCheck, TrendingUp, Headphones, Loader2 } from "lucide-react";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/cadastrar-restaurante")({
   head: () => ({
@@ -53,14 +54,17 @@ function CadastrarPage() {
   const [values, setValues] = useState<FormValues>(empty);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
 
   function update<K extends keyof FormValues>(key: K, v: string) {
     setValues((s) => ({ ...s, [key]: v }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setServerError(null);
     const result = schema.safeParse(values);
     if (!result.success) {
       const fieldErrors: FormErrors = {};
@@ -71,6 +75,25 @@ function CadastrarPage() {
       setErrors(fieldErrors);
       return;
     }
+
+    setSubmitting(true);
+    const { error } = await supabase.from("restaurants").insert({
+      name: result.data.nome,
+      address: result.data.endereco,
+      hours: result.data.horario,
+      whatsapp: result.data.whatsapp,
+      owner_name: result.data.responsavel,
+      owner_phone: result.data.telefone,
+      owner_email: result.data.email || null,
+      status: "pendente",
+    });
+    setSubmitting(false);
+
+    if (error) {
+      setServerError("Não foi possível enviar o pedido. Tente novamente.");
+      return;
+    }
+
     setSubmitted(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -212,8 +235,22 @@ function CadastrarPage() {
                 </p>
               </div>
 
-              <Button type="submit" variant="hero" size="lg" className="w-full">
-                <Send className="size-4" /> Enviar Pedido
+              {serverError && (
+                <p className="rounded-lg bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
+                  {serverError}
+                </p>
+              )}
+
+              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={submitting}>
+                {submitting ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" /> A enviar...
+                  </>
+                ) : (
+                  <>
+                    <Send className="size-4" /> Enviar Pedido
+                  </>
+                )}
               </Button>
             </form>
           )}
