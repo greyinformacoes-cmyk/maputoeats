@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import { CheckCircle2, Info, Send, ShieldCheck, TrendingUp, Headphones } from "lucide-react";
+import { CheckCircle2, Info, Send, ShieldCheck, TrendingUp, Headphones, Loader2 } from "lucide-react";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/cadastrar-restaurante")({
   head: () => ({
