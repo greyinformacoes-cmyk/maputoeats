@@ -235,8 +235,22 @@ function CadastrarPage() {
                 </p>
               </div>
 
-              <Button type="submit" variant="hero" size="lg" className="w-full">
-                <Send className="size-4" /> Enviar Pedido
+              {serverError && (
+                <p className="rounded-lg bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
+                  {serverError}
+                </p>
+              )}
+
+              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={submitting}>
+                {submitting ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" /> A enviar...
+                  </>
+                ) : (
+                  <>
+                    <Send className="size-4" /> Enviar Pedido
+                  </>
+                )}
               </Button>
             </form>
           )}
