@@ -15,6 +15,7 @@ import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as CategoriasRouteImport } from './routes/categorias'
 import { Route as CadastrarRestauranteRouteImport } from './routes/cadastrar-restaurante'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RestaurantesIndexRouteImport } from './routes/restaurantes.index'
 import { Route as RestaurantesIdRouteImport } from './routes/restaurantes.$id'
@@ -49,6 +50,11 @@ const CadastrarRestauranteRoute = CadastrarRestauranteRouteImport.update({
   path: '/cadastrar-restaurante',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -67,6 +73,7 @@ const RestaurantesIdRoute = RestaurantesIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
   '/categorias': typeof CategoriasRoute
   '/contacto': typeof ContactoRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
   '/categorias': typeof CategoriasRoute
   '/contacto': typeof ContactoRoute
@@ -90,6 +98,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/cadastrar-restaurante': typeof CadastrarRestauranteRoute
   '/categorias': typeof CategoriasRoute
   '/contacto': typeof ContactoRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/cadastrar-restaurante'
     | '/categorias'
     | '/contacto'
@@ -114,6 +124,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/cadastrar-restaurante'
     | '/categorias'
     | '/contacto'
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/cadastrar-restaurante'
     | '/categorias'
     | '/contacto'
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   CadastrarRestauranteRoute: typeof CadastrarRestauranteRoute
   CategoriasRoute: typeof CategoriasRoute
   ContactoRoute: typeof ContactoRoute
@@ -191,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CadastrarRestauranteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -217,6 +237,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   CadastrarRestauranteRoute: CadastrarRestauranteRoute,
   CategoriasRoute: CategoriasRoute,
   ContactoRoute: ContactoRoute,
@@ -229,3 +250,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
